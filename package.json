@@ -1,0 +1,25 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "BLOG with node js, angular js, mongo db",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kirtandudhatra/blog.git"
+  },
+  "keywords": [
+    "blog",
+    "nodejs",
+    "angularjs",
+    "mongodb"
+  ],
+  "author": "Kirtan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kirtandudhatra/blog/issues"
+  },
+  "homepage": "https://github.com/kirtandudhatra/blog#readme"
+}
