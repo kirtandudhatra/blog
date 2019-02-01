@@ -1,4 +1,6 @@
-var app = angular.module('myApp', []);
+var app = angular.module('myApp', []).config(function ($httpProvider){  
+    $httpProvider.interceptors.push(testInterceptor);  
+}); 
 app.controller('myCtrl', function($scope, $http) {
 
 	var req = {
@@ -20,7 +22,7 @@ app.controller('myCtrl', function($scope, $http) {
 			 data: { title: $scope.t,body:$scope.b }
 		};
 		$http(req).then(function(response){
-			if(response.data.status == 0){
+			if(response.data.status == 1){
 				window.location.replace('/home');
 			}
 		});

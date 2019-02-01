@@ -11,17 +11,18 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static('view'));
 
 app.get('/', function (req, res) {
-   res.sendFile(__dirname + '/view/login.html');
-});
-app.post('/login',function (req, res) {
 	if(!req.session.uname){
-		logindata.login(req,res);		  	
+   		res.sendFile(__dirname + '/view/login.html');
 	}
-	else{
+   else{
 		res.writeHead(200,{'Content-Type': 'text/html'});
 		res.end("<script>window.location.replace('/home');</script>");
 	}
-   
+});
+app.post('/login',function (req, res) {
+
+		logindata.login(req,res);		  	
+ 
 });
 app.get('/home', function (req, res) {
 	if(!req.session.uname){
@@ -30,13 +31,14 @@ app.get('/home', function (req, res) {
 		  	
 	}
 	else{
+
    		res.sendFile(__dirname + '/view/home.html');
    	}
 });
 app.get('/posts',function (req, res) {
 	if(!req.session.uname){
-		res.writeHead(200,{'Content-Type': 'text/html'});
-		res.end("<script>alert('Login Required!');window.location.replace('/');</script>");
+		res.writeHead(200,{'Content-Type': 'application/json'});
+		res.end(JSON.stringify({status: 0}));
 		  	
 	}
 	else{
@@ -45,8 +47,8 @@ app.get('/posts',function (req, res) {
 });
 app.post('/createpost',function (req, res) {
 	if(!req.session.uname){
-		res.writeHead(200,{'Content-Type': 'text/html'});
-		res.end("<script>alert('Login Required!');window.location.replace('/');</script>");
+		res.writeHead(200,{'Content-Type': 'application/json'});
+		res.end(JSON.stringify({status: 0}));
 		  	
 	}
 	else{

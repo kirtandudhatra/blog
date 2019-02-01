@@ -32,7 +32,7 @@ module.exports ={
 	            return;
 	        }
 	        res.setHeader('Content-Type', 'application/json');
-	        res.send(JSON.stringify({ status: 0 }));
+	        res.send(JSON.stringify({ status: 1 }));
 	    })
 
 	}

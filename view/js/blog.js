@@ -1,4 +1,6 @@
-var app = angular.module('myApp', []);
+var app = angular.module('myApp', []).config(function ($httpProvider){  
+    $httpProvider.interceptors.push(testInterceptor);  
+}); 
 app.controller('myCtrl', function($scope, $http) {
     $scope.login = function(){
     	var req = {
@@ -15,4 +17,4 @@ app.controller('myCtrl', function($scope, $http) {
 			}
 		});
     }
-});
+}); 
