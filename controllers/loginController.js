@@ -14,16 +14,17 @@ module.exports = {
 			      } else {
 			      	
 			        if(user.length == 1){
+			        	req.session.uname = req.body.uname;
 			       		res.setHeader('Content-Type', 'application/json');
 	        			res.send(JSON.stringify({ status: 1 }));
 	        		}
 	        		else{
+	        			
 	        			res.setHeader('Content-Type', 'application/json');
 	        			res.send(JSON.stringify({ status: 0 }));
 	        		}
 			      }
 			});
 	
-
 	}
 }

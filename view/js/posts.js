@@ -26,4 +26,16 @@ app.controller('myCtrl', function($scope, $http) {
 		});
 	}
 
+	$scope.logout = function(){
+		var req = {
+			 method: 'GET',
+			 url: '/logout',
+		};
+		$http(req).then(function(response){
+			if(response.data.status == 1){
+				window.location.replace('/');
+			}
+		});
+	}
+
 });

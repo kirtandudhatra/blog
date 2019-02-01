@@ -1,8 +1,10 @@
-const express = require('express')
+const express = require('express');
+var session = require('express-session');
 const bodyParser = require('body-parser');
 const logindata = require('./controllers/loginController');
 const postdata = require('./controllers/postsController');
-var app = express()
+var app = express();
+app.use(session({secret: 'secretkey', saveUninitialized : true, resave : true}));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -12,16 +14,60 @@ app.get('/', function (req, res) {
    res.sendFile(__dirname + '/view/login.html');
 });
 app.post('/login',function (req, res) {
-   logindata.login(req,res);
+	if(!req.session.uname){
+		logindata.login(req,res);		  	
+	}
+	else{
+		res.writeHead(200,{'Content-Type': 'text/html'});
+		res.end("<script>window.location.replace('/home');</script>");
+	}
+   
 });
 app.get('/home', function (req, res) {
-   res.sendFile(__dirname + '/view/home.html');
+	if(!req.session.uname){
+		res.writeHead(200,{'Content-Type': 'text/html'});
+		res.end("<script>alert('Login Required!');window.location.replace('/');</script>");
+		  	
+	}
+	else{
+   		res.sendFile(__dirname + '/view/home.html');
+   	}
 });
 app.get('/posts',function (req, res) {
-   postdata.getPosts(req,res);
+	if(!req.session.uname){
+		res.writeHead(200,{'Content-Type': 'text/html'});
+		res.end("<script>alert('Login Required!');window.location.replace('/');</script>");
+		  	
+	}
+	else{
+   		postdata.getPosts(req,res);
+   	}
 });
 app.post('/createpost',function (req, res) {
-   postdata.createPost(req,res);
+	if(!req.session.uname){
+		res.writeHead(200,{'Content-Type': 'text/html'});
+		res.end("<script>alert('Login Required!');window.location.replace('/');</script>");
+		  	
+	}
+	else{
+   		postdata.createPost(req,res);
+   	}
+});
+app.get('/logout', function(req, res){
+	req.session.destroy(function(err) {
+		  if (err){
+
+		    	res.writeHead(200,{'Content-Type': 'application/json'});
+		  		res.end(JSON.stringify({status: 0}));
+		  	
+		    }
+		   else{
+		   		res.writeHead(200,{'Content-Type': 'application/json'});
+		  		res.end(JSON.stringify({status: 1}));
+		  	
+		   }
+		});
+
 });
 
 app.listen(3000);

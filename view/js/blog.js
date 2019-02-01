@@ -10,7 +10,9 @@ app.controller('myCtrl', function($scope, $http) {
 			 data: { uname: $scope.uname,pass:$scope.pass }
 		};
 		$http(req).then(function(response){
-			console.log(response.data.status);
+			if(response.data.status == 1){
+				window.location.replace('/home');
+			}
 		});
     }
 });
